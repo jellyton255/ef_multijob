@@ -1,0 +1,21 @@
+{
+  "Lua.diagnostics.disable": [
+    "undefined-global",
+    "redundant-parameter",
+    "malformed-number",
+    "miss-loop-max",
+    "lowercase-global",
+    "cast-local-type",
+    "need-check-nil",
+    "miss-symbol",
+    "spell-check",
+    "no-unknown",
+    "codestyle-check",
+    "unsupport-symbol",
+    "param-type-mismatch",
+    "missing-parameter",
+    "missing-global-doc",
+    "name-style-check",
+    "await-in-sync"
+  ]
+}
