@@ -27,15 +27,9 @@ jobs:
       - name: Setup node
         uses: actions/setup-node@v2
         with:
-          node-version: 16.x
+          node-version: 20.x
           cache: "pnpm"
           cache-dependency-path: "web/pnpm-lock.yaml"
-
-      - name: Create .npmrc
-        run: |
-          echo "@fortawesome:registry=https://npm.fontawesome.com/" > .npmrc
-          echo "//npm.fontawesome.com/:_authToken=${{ secrets.FONT_AWESOME_PRO_TOKEN }}" >> .npmrc
-        working-directory: web
 
       - name: Install dependencies
         run: pnpm i --frozen-lockfile
@@ -46,7 +40,6 @@ jobs:
         working-directory: web
         env:
           CI: false
-          FONT_AWESOME_PRO_TOKEN: ${{ secrets.FONT_AWESOME_PRO_TOKEN }}
 
       - name: Bump manifest version
         run: node .github/actions/bump-manifest-version.js
@@ -66,10 +59,6 @@ jobs:
         uses: EndBug/latest-tag@latest
         with:
           tag-name: ${{ github.ref_name }}
-
-      - name: Remove .npmrc file
-        run: rm -f .npmrc
-        working-directory: web
 
       - name: Bundle files
         run: |
