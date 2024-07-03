@@ -141,7 +141,12 @@ RegisterNUICallback("hideFrame", function(_, cb)
 	lib.print.debug("Hide NUI frame")
 end)
 
-RegisterCommand("toggleJobMenu", function()
-	toggleNuiFrame(not PanelOpen)
-end)
-RegisterKeyMapping('toggleJobMenu', "Job Menu", "keyboard", "F9")
+local keybindMenuMultiJob = lib.addKeybind({
+    name = 'toggleJobMenu',
+    description = 'Job Menu',
+    defaultKey = 'F9',
+    onPressed = function(self)
+        toggleNuiFrame(not PanelOpen)
+        lib.print.info(('pressed %s (%s)'):format(self.currentKey, self.name))
+    end
+})
