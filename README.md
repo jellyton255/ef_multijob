@@ -2,7 +2,7 @@
 
 Multi job selector made in React for qbx_core.
 
-![Preview Image](https://files.jellyton.me/ShareX/2024/06/chrome_-_June17_-_22.59_-_3756.png)
+![Preview Image](https://files.jellyton.me/ShareX/2025/01/FiveM_GTAProcess_-_January22_-_14.16_-_4550.png)
 
 ## Features
 
