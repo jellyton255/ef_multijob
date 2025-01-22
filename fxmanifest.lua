@@ -3,7 +3,7 @@ game 'gta5'
 
 description "Everfall Multijob"
 author "Jellyton"
-version '1.0.0'
+version '1.1.0'
 description 'Everfall multijob selector. Made with React.'
 license 'GPL-3.0'
 repository 'https://github.com/jellyton255/ef-multijob'
