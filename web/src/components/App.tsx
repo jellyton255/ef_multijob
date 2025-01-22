@@ -2,15 +2,18 @@ import { debugData } from "../utils/debugData";
 import { VisibilityProvider } from "../providers/VisibilityProvider";
 import DataHandler from "../DataHandler";
 import Panel from "./Panel";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
-function App() {
+export default function App() {
   DataHandler();
 
   return (
     <VisibilityProvider>
-      <div className="flex h-screen dark items-center justify-end">
-        <Panel />
-      </div>
+      <TooltipProvider delayDuration={0}>
+        <div className="dark flex h-screen items-center justify-end">
+          <Panel />
+        </div>
+      </TooltipProvider>
     </VisibilityProvider>
   );
 }
@@ -21,5 +24,3 @@ debugData([
     data: true,
   },
 ]);
-
-export default App;

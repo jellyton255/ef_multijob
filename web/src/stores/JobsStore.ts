@@ -1,7 +1,7 @@
 import { create } from "zustand";
 
 type JobsState = {
-  CurrentJob: Job;
+  CurrentJob: Job | undefined;
   Jobs: Job[];
   setCurrentJob: (job: Job) => void;
   addJob: (job: Job) => void;
@@ -11,7 +11,7 @@ type JobsState = {
 };
 
 export const useStoreJobs = create<JobsState>((set) => ({
-  CurrentJob: null,
+  CurrentJob: undefined,
   Jobs: [],
 
   setCurrentJob: (job: Job) => {

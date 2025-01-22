@@ -1,55 +1,58 @@
-import React, { Context, createContext, useContext, useEffect, useState } from "react";
+import { Context, createContext, FC, ReactNode, useContext, useEffect, useState } from "react";
 import { useNuiEvent } from "../hooks/useNuiEvent";
 import { fetchNui } from "../utils/fetchNui";
 import { isEnvBrowser } from "../utils/misc";
-import { Transition } from "@mantine/core";
+import { motion, AnimatePresence } from "motion/react";
 
 const VisibilityCtx = createContext<VisibilityProviderValue | null>(null);
 
 interface VisibilityProviderValue {
-	setVisible: (visible: boolean) => void;
-	visible: boolean;
+  setVisible: (visible: boolean) => void;
+  visible: boolean;
 }
 
-// This should be mounted at the top level of your application, it is currently set to
-// apply a CSS visibility value. If this is non-performant, this should be customized.
-export const VisibilityProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-	const [visible, setVisible] = useState(false);
+export const VisibilityProvider: FC<{ children: ReactNode }> = ({ children }) => {
+  const [visible, setVisible] = useState(false);
 
-	useNuiEvent<boolean>("setVisible", setVisible);
+  useNuiEvent<boolean>("setVisible", setVisible);
 
-	// Handle pressing escape/backspace
-	useEffect(() => {
-		// Only attach listener when we are visible
-		if (!visible) return;
+  useEffect(() => {
+    if (!visible) return;
 
-		const keyHandler = (e: KeyboardEvent) => {
-			if (["Escape"].includes(e.code)) {
-				if (!isEnvBrowser()) fetchNui("hideFrame");
-				else setVisible(!visible);
-			}
-		};
+    const keyHandler = (e: KeyboardEvent) => {
+      if (["Escape"].includes(e.code)) {
+        if (!isEnvBrowser()) fetchNui("hideFrame");
+        else setVisible(!visible);
+      }
+    };
 
-		window.addEventListener("keydown", keyHandler);
+    window.addEventListener("keydown", keyHandler);
 
-		return () => window.removeEventListener("keydown", keyHandler);
-	}, [visible]);
+    return () => window.removeEventListener("keydown", keyHandler);
+  }, [visible]);
 
-	return (
-		<VisibilityCtx.Provider
-			value={{
-				visible,
-				setVisible,
-			}}>
-			<Transition mounted={visible} transition="slide-left" duration={400} timingFunction="ease">
-				{(styles) => (
-					<div style={styles}>
-						<div style={{ height: "100%" }}>{children}</div>
-					</div>
-				)}
-			</Transition>
-		</VisibilityCtx.Provider>
-	);
+  return (
+    <VisibilityCtx.Provider
+      value={{
+        visible,
+        setVisible,
+      }}
+    >
+      <AnimatePresence>
+        {visible && (
+          <motion.div
+            initial={{ x: "100%", opacity: 0 }}
+            animate={{ x: 0, opacity: 1 }}
+            exit={{ x: "100%", opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <div className="h-full">{children}</div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </VisibilityCtx.Provider>
+  );
 };
 
-export const useVisibility = () => useContext<VisibilityProviderValue>(VisibilityCtx as Context<VisibilityProviderValue>);
+export const useVisibility = () =>
+  useContext<VisibilityProviderValue>(VisibilityCtx as Context<VisibilityProviderValue>);

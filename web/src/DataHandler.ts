@@ -5,17 +5,8 @@ import { debugData } from "./utils/debugData";
 export default function DataHander() {
   const { setCurrentJob, setJobs } = useStoreJobs();
 
-  useNuiEvent("setCurrentJob", (data: Job) => {
-    if (data) {
-      setCurrentJob(data);
-    }
-  });
-
-  useNuiEvent("setJobs", (data: Job[]) => {
-    if (data) {
-      setJobs(data);
-    }
-  });
+  useNuiEvent("setCurrentJob", setCurrentJob);
+  useNuiEvent("setJobs", setJobs);
 }
 
 debugData([
