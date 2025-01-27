@@ -1,6 +1,6 @@
 # ef_multijob
 
-Multi job selector made in React for qbx_core.
+Multi-job selector made in React for qbx_core.
 
 ![Preview Image](https://files.jellyton.me/ShareX/2025/01/FiveM_GTAProcess_-_January22_-_14.16_-_4550.png)
 
@@ -8,9 +8,9 @@ Multi job selector made in React for qbx_core.
 
 - Supports unlimited jobs
 - Specify between salary and contract based jobs
-- Duty select toggle
+- Optimistic duty toggle
 - Responsive UI
-- UI made with TailwindCSS & Mantine v7
+- UI made with shadcn/ui & TailwindCSS
 
 ### Dependencies
 
@@ -23,4 +23,4 @@ This repo uses the QBox Project contribution guidelines. You can view those here
 
 ### Copyright
 
-Copyright © 2024 Everfall <https://www.everfallcommunity.com/>
+Copyright © 2025 Everfall <https://www.everfallcommunity.com/>
